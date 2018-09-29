@@ -1,0 +1,281 @@
+
+CREATE TABLE Countries (
+    Countryid     INTEGER NOT NULL,
+    "Description"   VARCHAR2(255),
+    Coin          varchar2(255)
+);
+
+ALTER TABLE Countries ADD CONSTRAINT Countries_pk PRIMARY KEY ( Countryid );
+
+CREATE TABLE States (
+    StateId          INTEGER NOT NULL,
+    "Description"   VARCHAR2(255)
+);
+
+ALTER TABLE States ADD CONSTRAINT States_pk PRIMARY KEY ( Stateid );
+
+CREATE TABLE "Language" (
+    LanguageId    INTEGER NOT NULL,
+    "Description"   VARCHAR2(255)
+);
+
+ALTER TABLE "Language" ADD CONSTRAINT Language_pk PRIMARY KEY ( Languageid );
+
+CREATE TABLE Emails (
+    EmailId   INTEGER NOT NULL,
+    Address   VARCHAR2(255)
+);
+
+ALTER TABLE Emails ADD CONSTRAINT Email_pk PRIMARY KEY ( Emailid );
+
+CREATE TABLE Rols (
+    RolId INTEGER NOT NULL,
+    "Description"   VARCHAR2(255)
+);
+
+ALTER TABLE Rols ADD CONSTRAINT Rols_pk PRIMARY KEY ( Rolid );
+
+CREATE TABLE Types_Service (
+    TypeServiceId   INTEGER NOT NULL,
+    "Description"     VARCHAR2(255)
+);
+
+ALTER TABLE Types_Service ADD CONSTRAINT types_service_pk PRIMARY KEY ( TypeServiceId );
+
+
+CREATE TABLE Entities_Banking (
+    EntityBankId   INTEGER NOT NULL,
+    "Description"    VARCHAR2(255)
+);
+
+ALTER TABLE Entities_Banking ADD CONSTRAINT entities_banking_pk PRIMARY KEY ( EntityBankId );
+
+CREATE TABLE Cities (
+    CityId           INTEGER NOT NULL,
+    "Description"   VARCHAR2(255),
+    CodePostal       VARCHAR2(255),
+    CountryId        INTEGER NOT NULL
+);
+
+ALTER TABLE Cities ADD CONSTRAINT Cities_pk PRIMARY KEY ( CityId );
+ALTER TABLE Cities
+    ADD CONSTRAINT "Cities _Countries_FK" FOREIGN KEY ( CountryId )
+        REFERENCES Countries ( CountryId );
+
+
+CREATE TABLE Payment (
+    PaymentId     INTEGER NOT NULL,
+    "Description"   VARCHAR2(255),
+    "Type"          VARCHAR2(255),
+    EntityId      INTEGER NOT NULL
+);
+
+ALTER TABLE Payment ADD CONSTRAINT payment_pk PRIMARY KEY ( PaymentId );
+
+ALTER TABLE Payment
+    ADD CONSTRAINT "Payment_Entities_Banking_FK" FOREIGN KEY (EntityId)
+    REFERENCES Entities_Banking (EntityId);
+
+
+CREATE TABLE "Users" (
+    UserId       INTEGER NOT NULL,
+    "Name"      VARCHAR2(255),
+    LastName     VARCHAR2(255),
+    Mobile       NUMBER,
+    UrlProfile   VARCHAR2(255),
+    SendReceipts   VARCHAR2(255),
+    InviteCode   INTEGER,
+    CityId       INTEGER NOT NULL,    
+    LanguageId   INTEGER NOT NULL
+);
+
+ALTER TABLE "Users" ADD CONSTRAINT users_pk PRIMARY KEY ( UserId );
+
+ALTER TABLE "Users"
+    ADD CONSTRAINT "Users_Cities_FK" FOREIGN KEY (CityId)
+    REFERENCES Cities (CityId);
+    
+ALTER TABLE "Users"
+    ADD CONSTRAINT "Users_Language_FK" FOREIGN KEY (LanguageId)
+    REFERENCES "Language" (LanguageId);
+    
+    
+
+CREATE TABLE Email_User (
+    EmailUserId   INTEGER NOT NULL,
+    EmailId       INTEGER NOT NULL,
+    UserId        INTEGER NOT NULL,
+    Active        CHAR(1)
+);
+
+ALTER TABLE Email_User ADD CONSTRAINT email_user_pk PRIMARY KEY ( EmailUserId );
+
+ALTER TABLE Email_User
+    ADD CONSTRAINT Email_User_Emails_fk FOREIGN KEY ( EmailId )
+        REFERENCES Emails ( EmailId );
+
+ALTER TABLE Email_User
+    ADD CONSTRAINT "Email_User_Users _FK" FOREIGN KEY ( UserId )
+        REFERENCES "Users" ( UserId );
+        
+        
+CREATE TABLE Rols_User (
+    RolUserId   INTEGER NOT NULL,
+    UserId      INTEGER NOT NULL,
+    RolId       INTEGER NOT NULL
+);
+
+ALTER TABLE Rols_User ADD CONSTRAINT rols_user_pk PRIMARY KEY ( RolUserId );        
+        
+ALTER TABLE Rols_User
+    ADD CONSTRAINT rols_user_rols_fk FOREIGN KEY ( rolid )
+        REFERENCES Rols ( RolId );
+
+ALTER TABLE Rols_User
+    ADD CONSTRAINT "Rols_User_Users _FK" FOREIGN KEY ( UserId )
+        REFERENCES "Users" ( UserId );        
+        
+        
+        
+CREATE TABLE Users_Payment (
+    UserPaymentId   INTEGER NOT NULL,
+    "NumberCard"    VARCHAR2(255),
+    Active          CHAR(1),
+    UserId          INTEGER NOT NULL,
+    PaymentId       INTEGER NOT NULL
+);
+
+ALTER TABLE Users_Payment ADD CONSTRAINT users_payment_pk PRIMARY KEY ( UserPaymentId );
+
+ALTER TABLE Users_Payment
+    ADD CONSTRAINT Users_Payment_Payment_FK FOREIGN KEY ( PaymentId )
+        REFERENCES Payment ( PaymentId );
+        
+ALTER TABLE Users_Payment
+    ADD CONSTRAINT Users_Payment_Users_FK FOREIGN KEY ( UserId )
+        REFERENCES "Users" ( UserId );
+
+
+CREATE TABLE Promotions (
+    PromotionId   INTEGER NOT NULL,
+    Code          INTEGER,
+    UserId        INTEGER NOT NULL,
+    Discount      NUMBER,
+    Active        CHAR(1)
+);
+
+ALTER TABLE Promotions ADD CONSTRAINT promotions_pk PRIMARY KEY ( PromotionId );
+
+ALTER TABLE Promotions
+    ADD CONSTRAINT "Promotions_Users _FK" FOREIGN KEY ( UserId )
+        REFERENCES "Users" ( UserId );
+
+
+CREATE TABLE Overrum (
+    OverrumId        INTEGER NOT NULL,
+    Quantity         NUMBER,
+    "Description"   VARCHAR2(255),
+    Active           CHAR(1),
+    UserId           INTEGER NOT NULL
+);
+
+ALTER TABLE Overrum ADD CONSTRAINT types_service_pk PRIMARY KEY ( OverrumId );
+
+ALTER TABLE Overrum
+    ADD CONSTRAINT "Overrum_Users _FK" FOREIGN KEY ( UserId )
+        REFERENCES "Users" ( UserId );
+
+CREATE TABLE Vehicules (
+    VehiculeId      INTEGER NOT NULL,
+    "Plate"        VARCHAR2(50),
+    Brand           VARCHAR2(50),
+    "Model"           VARCHAR2(50),
+    "Year"         INTEGER NOT NULL,
+    "UserId"       INTEGER NOT NULL,
+    TypeServiceId   INTEGER NOT NULL
+);
+
+ALTER TABLE Vehicules ADD CONSTRAINT vehicules_pk PRIMARY KEY ( VehiculeId );
+
+ALTER TABLE Vehicules
+    ADD CONSTRAINT "Vehicules_Users _FK" FOREIGN KEY ( UserId )
+        REFERENCES "Users" ( UserId );
+
+ALTER TABLE Vehicules
+    ADD CONSTRAINT "Vehicules _Types_Service _FK" FOREIGN KEY ( TypeServiceId )
+        REFERENCES "Types_Service" ( TypeServiceId );
+
+
+CREATE TABLE Trips (
+    TripId               INTEGER NOT NULL,
+    Pickup               DATE,
+    DestinationAddress   VARCHAR2(255),
+    originaddress        VARCHAR2(255),
+    DateStart            DATE,
+    HourStart            TIMESTAMP,
+    DateFinish           DATE,
+    HourFinish           TIMESTAMP,
+    DistanceTraveled     VARCHAR2(255),
+    TimeTravel           TIMESTAMP,
+    StateId              INTEGER NOT NULL,
+    CityId               INTEGER,
+    VehiculeId           INTEGER NOT NULL    
+);
+
+ALTER TABLE Trips ADD CONSTRAINT trips_pk PRIMARY KEY ( TripId );
+
+
+
+
+
+
+
+CREATE TABLE fare_details (
+    FareDetailsId   INTEGER NOT NULL,
+    total              DECIMAL,
+    subtotal           Decimal,
+    Tip decimal,
+    derivate decimal
+);
+
+ALTER TABLE fare_details ADD CONSTRAINT fare_details_pk PRIMARY KEY ( "FareDetailsId " );
+
+
+CREATE TABLE user_trips (
+    usertripid      INTEGER NOT NULL,
+    userid          INTEGER NOT NULL,
+    tripid          INTEGER,
+    userpaymentid   INTEGER NOT NULL
+);
+
+ALTER TABLE user_trips ADD CONSTRAINT user_trips_pk PRIMARY KEY ( usertripid );
+
+
+
+
+
+
+
+
+ALTER TABLE "Trips "
+    ADD CONSTRAINT "Trips _Fare_Details_FK" FOREIGN KEY ( faredetailsid )
+        REFERENCES fare_details ( "FareDetailsId " );
+
+ALTER TABLE "Trips "
+    ADD CONSTRAINT "Trips _States_FK" FOREIGN KEY ( stateid )
+        REFERENCES states ( stateid );
+
+ALTER TABLE "Trips "
+    ADD CONSTRAINT "Trips _Vehicules _FK" FOREIGN KEY ( vehiculoid )
+        REFERENCES "Vehicules " ( vehiculeid );
+
+ALTER TABLE user_trips
+    ADD CONSTRAINT "User_Trips_Users _FK" FOREIGN KEY ( userid )
+        REFERENCES "Users " ( userid );
+
+ALTER TABLE "Users "
+    ADD CONSTRAINT "Users _Language_FK" FOREIGN KEY ( languageid )
+        REFERENCES language ( languageid );
+
+
+
