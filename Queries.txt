@@ -217,6 +217,7 @@ CREATE TABLE Trips (
     HourFinish           TIMESTAMP,
     DistanceTraveled     VARCHAR2(255),
     TimeTravel           TIMESTAMP,
+    Total                DECIMAL,
     StateId              INTEGER NOT NULL,
     CityId               INTEGER,
     VehiculeId           INTEGER NOT NULL    
@@ -224,58 +225,51 @@ CREATE TABLE Trips (
 
 ALTER TABLE Trips ADD CONSTRAINT trips_pk PRIMARY KEY ( TripId );
 
+ALTER TABLE Trips
+    ADD CONSTRAINT "Trips _States_FK" FOREIGN KEY ( StateId )
+        REFERENCES states ( StateId );
 
+ALTER TABLE Trips
+    ADD CONSTRAINT "Trips _Vehicules _FK" FOREIGN KEY ( VehiculeId )
+        REFERENCES Vehicules ( VehiculeId );
+        
+ALTER TABLE Trips
+    ADD CONSTRAINT "Trips _Cities _FK" FOREIGN KEY ( CityId )
+        REFERENCES Cities ( CityId );
+        
 
-
-
-
-
-CREATE TABLE fare_details (
-    FareDetailsId   INTEGER NOT NULL,
-    total              DECIMAL,
-    subtotal           Decimal,
-    Tip decimal,
-    derivate decimal
+CREATE TABLE Fare_Details(
+    Fare_DetailsId INTEGER NOT NULL ,
+    "Desctiotion" VARCHAR2(255),
+    "Value" DECIMAL,
+    TripId INTEGER NOT NULL
 );
 
-ALTER TABLE fare_details ADD CONSTRAINT fare_details_pk PRIMARY KEY ( "FareDetailsId " );
+ALTER TABLE Fare_Details ADD CONSTRAINT Fare_Details_pk PRIMARY KEY ( Fare_DetailsId );
+
+ALTER TABLE Fare_Details
+    ADD CONSTRAINT "Fare_Details Trips _FK" FOREIGN KEY ( TripId )
+        REFERENCES Trips ( TripId );
 
 
-CREATE TABLE user_trips (
-    usertripid      INTEGER NOT NULL,
-    userid          INTEGER NOT NULL,
-    tripid          INTEGER,
-    userpaymentid   INTEGER NOT NULL
+CREATE TABLE User_Trips (
+    User_TripsId      INTEGER NOT NULL,
+    IsShared        CHAR(1),
+    UserId          INTEGER NOT NULL,
+    TripId          INTEGER,    
+    UserPaymentId   INTEGER NOT NULL
 );
 
 ALTER TABLE user_trips ADD CONSTRAINT user_trips_pk PRIMARY KEY ( usertripid );
 
+ALTER TABLE User_Trips
+    ADD CONSTRAINT "User_Trips_Users _FK" FOREIGN KEY ( UserId )
+        REFERENCES "Users" ( UserId );
 
+ALTER TABLE User_Trips
+    ADD CONSTRAINT "User_Trips_Trips _FK" FOREIGN KEY ( TripId )
+        REFERENCES Trips ( TripId );
 
-
-
-
-
-
-ALTER TABLE "Trips "
-    ADD CONSTRAINT "Trips _Fare_Details_FK" FOREIGN KEY ( faredetailsid )
-        REFERENCES fare_details ( "FareDetailsId " );
-
-ALTER TABLE "Trips "
-    ADD CONSTRAINT "Trips _States_FK" FOREIGN KEY ( stateid )
-        REFERENCES states ( stateid );
-
-ALTER TABLE "Trips "
-    ADD CONSTRAINT "Trips _Vehicules _FK" FOREIGN KEY ( vehiculoid )
-        REFERENCES "Vehicules " ( vehiculeid );
-
-ALTER TABLE user_trips
-    ADD CONSTRAINT "User_Trips_Users _FK" FOREIGN KEY ( userid )
-        REFERENCES "Users " ( userid );
-
-ALTER TABLE "Users "
-    ADD CONSTRAINT "Users _Language_FK" FOREIGN KEY ( languageid )
-        REFERENCES language ( languageid );
-
-
-
+ALTER TABLE User_Trips
+    ADD CONSTRAINT "User_Trips_User_Payment _FK" FOREIGN KEY ( UserPaymentId )
+        REFERENCES Users_Payment ( UserPaymentId );
