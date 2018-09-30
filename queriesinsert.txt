@@ -3157,6 +3157,7 @@ insert into Payment (PaymentId, Description, Type, EntityId) values (17, 'Pago 1
 insert into Payment (PaymentId, Description, Type, EntityId) values (18, 'Pago 18', 'Credito', 2);
 insert into Payment (PaymentId, Description, Type, EntityId) values (19, 'Pago 19', 'Debito', 4);
 insert into Payment (PaymentId, Description, Type, EntityId) values (20, 'Pago 20', 'Debito', 3);
+insert into Payment (PaymentId, Description, Type, EntityId) values (20, 'Pago 21', 'Debito', 3);
 
 
 
