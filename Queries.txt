@@ -1,18 +1,16 @@
-CREATE TABLESPACE UberPrueba Datafile 'UberPrueba.txt' size 50M
+CREATE TABLESPACE Uber Datafile 'Uber.txt' size 25M
 extent MANAGEMENT LOCAL AUTOALLOCATE;
 
-Create user Brandon IDENTIFIED by Brandon DEFAULT TABLESPACE UberPrueba 
-QUOTA UNLIMITED on UberPrueba;
+Create user MaucoAurelio IDENTIFIED by MaucoAurelio DEFAULT TABLESPACE Uber
+QUOTA UNLIMITED on Uber;
 
-CREATE ROLE DESARROLLADOR;
+CREATE ROLE DBA2;
 
-GRANT DESARROLLADOR TO Brandon;
+GRANT DBA2 TO MaucoAurelio;
 
-GRANT CONNECT TO DESARROLLADOR;
+GRANT CONNECT TO DBA2;
 
-GRANT create table to DESARROLLADOR
-
-
+GRANT CREATE TABLE to DBA2;
 
 
 CREATE TABLE Countries (
@@ -90,7 +88,7 @@ ALTER TABLE Payment ADD CONSTRAINT payment_pk PRIMARY KEY ( PaymentId );
 
 ALTER TABLE Payment
     ADD CONSTRAINT "Payment_Entities_Banking_FK" FOREIGN KEY (EntityId)
-    REFERENCES Entities_Banking (EntityId);
+    REFERENCES Entities_Banking (EntityBankId);
 
 
 CREATE TABLE "Users" (
@@ -195,7 +193,7 @@ CREATE TABLE Overrum (
     UserId           INTEGER NOT NULL
 );
 
-ALTER TABLE Overrum ADD CONSTRAINT types_service_pk PRIMARY KEY ( OverrumId );
+ALTER TABLE Overrum ADD CONSTRAINT Overrum_pk PRIMARY KEY ( OverrumId );
 
 ALTER TABLE Overrum
     ADD CONSTRAINT "Overrum_Users _FK" FOREIGN KEY ( UserId )
@@ -214,12 +212,12 @@ CREATE TABLE Vehicules (
 ALTER TABLE Vehicules ADD CONSTRAINT vehicules_pk PRIMARY KEY ( VehiculeId );
 
 ALTER TABLE Vehicules
-    ADD CONSTRAINT "Vehicules_Users _FK" FOREIGN KEY ( UserId )
+    ADD CONSTRAINT "Vehicules_Users _FK" FOREIGN KEY ( "UserId" )
         REFERENCES "Users" ( UserId );
 
 ALTER TABLE Vehicules
     ADD CONSTRAINT "Vehicules _Types_Service _FK" FOREIGN KEY ( TypeServiceId )
-        REFERENCES "Types_Service" ( TypeServiceId );
+        REFERENCES Types_Service ( TypeServiceId );
 
 
 CREATE TABLE Trips (
@@ -276,7 +274,7 @@ CREATE TABLE User_Trips (
     UserPaymentId   INTEGER NOT NULL
 );
 
-ALTER TABLE user_trips ADD CONSTRAINT user_trips_pk PRIMARY KEY ( usertripid );
+ALTER TABLE user_trips ADD CONSTRAINT user_trips_pk PRIMARY KEY ( User_TripsId );
 
 ALTER TABLE User_Trips
     ADD CONSTRAINT "User_Trips_Users _FK" FOREIGN KEY ( UserId )
