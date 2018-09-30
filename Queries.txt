@@ -100,7 +100,7 @@ CREATE TABLE "Users" (
     Mobile       NUMBER,
     UrlProfile   VARCHAR2(255),
     SendReceipts   VARCHAR2(255),
-    InviteCode   INTEGER,
+    InviteCode   VARCHAR2(255),
     CityId       INTEGER NOT NULL,    
     LanguageId   INTEGER NOT NULL
 );
