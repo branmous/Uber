@@ -3129,3 +3129,34 @@ insert into Rols_User (RolUserId, UserId, RolId) values (497, 497, 1);
 insert into Rols_User (RolUserId, UserId, RolId) values (498, 498, 1);
 insert into Rols_User (RolUserId, UserId, RolId) values (499, 499, 1);
 insert into Rols_User (RolUserId, UserId, RolId) values (500, 500, 1);
+insert into Entities_Banking (EntityBankId, Description) values (1, 'mastercard');
+insert into Entities_Banking (EntityBankId, Description) values (2, 'diners-club-enroute');
+insert into Entities_Banking (EntityBankId, Description) values (3, 'bankcard');
+insert into Entities_Banking (EntityBankId, Description) values (4, 'visa');
+insert into Entities_Banking (EntityBankId, Description) values (5, 'visa-electron');
+insert into Entities_Banking (EntityBankId, Description) values (6, 'diners-club-enroute');
+insert into Entities_Banking (EntityBankId, Description) values (7, 'china-unionpay');
+
+insert into Payment (PaymentId, Description, Type, EntityId) values (1, 'Pago 1', 'Debito', 1);
+insert into Payment (PaymentId, Description, Type, EntityId) values (2, 'Pago 2', 'Credito', 2);
+insert into Payment (PaymentId, Description, Type, EntityId) values (3, 'Pago 3', 'Credito', 3);
+insert into Payment (PaymentId, Description, Type, EntityId) values (4, 'Pago 4', 'Credito', 4);
+insert into Payment (PaymentId, Description, Type, EntityId) values (5, 'Pago 5', 'Credito', 5);
+insert into Payment (PaymentId, Description, Type, EntityId) values (6, 'Pago 6', 'Credito', 6);
+insert into Payment (PaymentId, Description, Type, EntityId) values (7, 'Pago 7', 'Credito', 7);
+insert into Payment (PaymentId, Description, Type, EntityId) values (8, 'Pago 8', 'Credito', 2);
+insert into Payment (PaymentId, Description, Type, EntityId) values (9, 'Pago 9', 'Credito', 3);
+insert into Payment (PaymentId, Description, Type, EntityId) values (10, 'Pago 10', 'Debito', 4);
+insert into Payment (PaymentId, Description, Type, EntityId) values (11, 'Pago 11', 'Debito', 1);
+insert into Payment (PaymentId, Description, Type, EntityId) values (12, 'Pago 12', 'Debito', 3);
+insert into Payment (PaymentId, Description, Type, EntityId) values (13, 'Pago 13', 'Debito', 4);
+insert into Payment (PaymentId, Description, Type, EntityId) values (14, 'Pago 14', 'Debito', 2);
+insert into Payment (PaymentId, Description, Type, EntityId) values (15, 'Pago 15', 'Credito', 3);
+insert into Payment (PaymentId, Description, Type, EntityId) values (16, 'Pago 16', 'Credito', 6);
+insert into Payment (PaymentId, Description, Type, EntityId) values (17, 'Pago 17', 'Credito', 7);
+insert into Payment (PaymentId, Description, Type, EntityId) values (18, 'Pago 18', 'Credito', 2);
+insert into Payment (PaymentId, Description, Type, EntityId) values (19, 'Pago 19', 'Debito', 4);
+insert into Payment (PaymentId, Description, Type, EntityId) values (20, 'Pago 20', 'Debito', 3);
+
+
+
