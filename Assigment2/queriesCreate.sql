@@ -274,3 +274,75 @@ ALTER TABLE User_Trips
 ALTER TABLE User_Trips
     ADD CONSTRAINT User_Trips_User_Payment_FK FOREIGN KEY ( User_Payment_Id )
         REFERENCES Users_Payment ( User_Payment_Id );        
+
+
+
+
+
+
+
+
+
+
+
+
+insert into Countries (Country_id, Description, Coin) values (1, 'Colombia', 'CO');
+
+insert into Cities (City_Id, Description, Country_Id, Code_Postal,value_per_kilometer,value_per_minute,base_rate) 
+    values (1, 'Medellín', 1, '051059',764.525994,178.571429 ,2500);
+
+insert into Language (Language_Id, Description) values (1, 'Español');
+
+insert into Users (User_Id, Name, Last_Name, Mobile, Url_Profile, Send_Receipts, Invite_Code, City_Id, Language_Id) values (1, 'sebastian', 'palacio', '4895446153', 'http://dummyimage.com/150x224.jpg/ff4444/ffffff','All', 'MbesoPy4d4hL', 1, 1);
+insert into Users (User_Id, Name, Last_Name, Mobile, Url_Profile, Send_Receipts, Invite_Code, City_Id, Language_Id) values (2, 'anderson', 'mena', '32456678', 'http://dummyimage.com/150x224.jpg/ff4444/ffffff','All', 'MbesoPy4d3hT', 1, 1);
+insert into Users (User_Id, Name, Last_Name, Mobile, Url_Profile, Send_Receipts, Invite_Code, City_Id, Language_Id) values (3, 'brandon', 'Montoya', '3126104754', 'http://dummyimage.com/150x224.jpg/ff4444/ffffff','All', 'MbesoPy4d3hT', 1, 1);
+
+insert into entities_banking (entities_banking_id,description) VALUES (1,'Bancolombia');
+
+insert into Payment (Payment_Id, Description, Type,entities_banking_id) values (1, 'Tarjeta', 'Debito', 1);
+insert into Payment (Payment_Id, Description, Type,entities_banking_id) values (2, 'Tarjeta', 'Credito', 1);
+insert into Payment (Payment_Id, Description, Type,entities_banking_id) values (3, 'Androip', 'Androip', 1);
+insert into Payment (Payment_Id, Description, Type,entities_banking_id) values (4, 'Tarjeta', 'Efectivo', 1);
+
+insert into users_payment (user_payment_id,name_business,is_business,active,payment_id,user_id) values(1,'Telecop',1,1,1,1);
+insert into users_payment (user_payment_id,name_business,is_business,active,payment_id,user_id) values(2,'Telecop',1,1,2,1);
+insert into users_payment (user_payment_id,is_business,active,payment_id,user_id) values(3,0,1,2,2);
+insert into users_payment (user_payment_id,is_business,active,payment_id,user_id) values(4,0,1,2,2);
+
+insert into users_payment (user_payment_id,is_business,active,payment_id,user_id) values(5,0,1,3,3);
+insert into users_payment (user_payment_id,is_business,active,payment_id,user_id) values(6,0,1,4,3);
+
+insert into States (State_Id, Description) values (1, 'Pendiente');
+insert into States (State_Id, Description) values (2, 'Cancelada');
+insert into States (State_Id, Description) values (3, 'Aprobada');
+
+insert into Roles (Rol_Id, Description) values (1,'Usuarios');
+insert into Roles (Rol_Id, Description) values (2,'Conductores');
+
+
+
+insert into Users (User_Id, Name, Last_Name, Mobile, Url_Profile, Send_Receipts, Invite_Code, City_Id, Language_Id) values (4, 'Neyder', 'Murillo', '456789', 'http://dummyimage.com/150x224.jpg/ff4444/ffffff','All', 'MbedsoPy4d3hT', 1, 1);
+
+insert into Roles_User (Rol_User_Id, User_Id, Rol_Id) values (1, 1, 1);
+insert into Roles_User (Rol_User_Id, User_Id, Rol_Id) values (2, 2, 1);
+insert into Roles_User (Rol_User_Id, User_Id, Rol_Id) values (3, 3, 1);
+insert into Roles_User (Rol_User_Id, User_Id, Rol_Id) values (4, 4, 2);
+
+insert into types_service (types_service_id,description) values(1,'UberX');
+insert into types_service (types_service_id,description) values(2,'Uber Black');
+
+insert into Vehicules (vehicule_id, Plate, brand, Model, Year, User_Id, types_service_id) values (1, '55154-1276', 'Suzuki', 'Esteem', 2002, 4, 1);
+
+INSERT INTO "MAUCOAURELIO"."TRIPS" (TRIP_ID, PICKUP, DESTINATION_ADDRESS, ORIGIN_ADDRESS, DATE_START, HOUR_START, DATE_FINISH, HOUR_FINISH, DISTANCE_TRAVELED, TIME_TRAVEL, TOTAL, STATE_ID, CITY_ID, VEHICULE_ID) VALUES ('1', TO_DATE('2018-11-16 13:52:00', 'YYYY-MM-DD HH24:MI:SS'), 'ITM', 'Plaza botero', TO_DATE('2018-11-16 13:52:27', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2018-11-16 13:52:35.293483300', 'YYYY-MM-DD HH24:MI:SS.FF'), TO_DATE('2018-11-16 15:52:40', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2018-11-17 15:52:54.282909100', 'YYYY-MM-DD HH24:MI:SS.FF'), '2', TO_TIMESTAMP('2018-11-16 15:53:11.016803200', 'YYYY-MM-DD HH24:MI:SS.FF'), '40000', '1', '1', '1')
+
+
+UPDATE "MAUCOAURELIO"."TRIPS" SET HOUR_FINISH = TO_TIMESTAMP('2018-11-16 15:52:54.282909000', 'YYYY-MM-DD HH24:MI:SS.FF') WHERE ROWID = 'AAAE5jAAFAAAAFjAAA' AND ORA_ROWSCN = '383184'
+INSERT INTO "MAUCOAURELIO"."TRIPS" (TRIP_ID, PICKUP, DESTINATION_ADDRESS, ORIGIN_ADDRESS, DATE_START, HOUR_START, DATE_FINISH, HOUR_FINISH, DISTANCE_TRAVELED, TIME_TRAVEL, TOTAL, EXTRACOST, STATE_ID, CITY_ID, VEHICULE_ID) VALUES ('2', TO_DATE('2018-11-16 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 'ITM Robledo', 'Plaza botero', TO_DATE('2018-11-17 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2018-11-17 13:52:35.293483000', 'YYYY-MM-DD HH24:MI:SS.FF'), TO_DATE('2018-11-17 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2018-11-17 15:52:54.282909000', 'YYYY-MM-DD HH24:MI:SS.FF'), '2', TO_TIMESTAMP('2018-11-17 15:53:11.016803000', 'YYYY-MM-DD HH24:MI:SS.FF'), '50000', '1000', '1', '1', '1')
+
+UPDATE "MAUCOAURELIO"."TRIPS" SET PICKUP = TO_DATE('2018-11-17 00:00:00', 'YYYY-MM-DD HH24:MI:SS') WHERE ROWID = 'AAAE5jAAFAAAAFjAAB' AND ORA_ROWSCN = '383215'
+
+                    
+INSERT INTO USER_TRIPS (USER_TRIPSID,ISSHARED,USER_ID,TRIP_ID,USER_PAYMENT_ID)
+VALUES (1,0,1,1,1);
+INSERT INTO USER_TRIPS (USER_TRIPSID,ISSHARED,USER_ID,TRIP_ID,USER_PAYMENT_ID)
+VALUES (3,0,2,2,4)     

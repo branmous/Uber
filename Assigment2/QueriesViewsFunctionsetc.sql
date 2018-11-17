@@ -10,7 +10,11 @@ SELECT USERS.USER_ID, USERS.NAME || ' ' || USERS.lAST_NAME "Name",
         INNER JOIN PAYMENT ON USERS_PAYMENT.PAYMENT_ID = PAYMENT.PAYMENT_ID;
 
 
---2
+--2Cree una vista que permita listar los viajes de cada cliente ordenados cronológicamente.
+ --El nombre de la vista será “VIAJES_CLIENTES”, los campos que tendrá son: FECHA_VIAJE,           
+ --NOMBRE_CONDUCTOR, PLACA_VEHICULO, NOMBRE_CLIENTE, VALOR_TOTAL,    
+ --TARIFA_DINAMICA (FALSO O VERDADERO), TIPO_SERVICIO (UberX o UberBlack),        
+ --CIUDAD_VIAJE. ​(0.25)
 CREATE OR REPLACE VIEW VIAJES_CLIENTES AS
 SELECT BUSQUEDA.PICKUP,USERS.NAME || ' ' || USERS.lAST_NAME "NOMBRE CONDUCTOR",
 VEHICULES.PLATE,BUSQUEDA."NOMBRE PASAJERO",BUSQUEDA.TOTAL,BUSQUEDA.EXTRACOST,
@@ -23,6 +27,29 @@ FROM
     INNER JOIN TYPES_SERVICE ON VEHICULES.TYPES_SERVICE_ID = TYPES_SERVICE.TYPES_SERVICE_ID
     INNER JOIN USERS ON VEHICULES.USER_ID = USERS.USER_ID
     ORDER BY BUSQUEDA.PICKUP DESC;
+
+-- 3
+--Cree y evidencie el plan de ejecución de la vista VIAJES_CLIENTES. Cree al menos un índice donde                 
+--mejore el rendimiento del query y muestre el nuevo plan de ejecución. ​(0.25) 
+EXPLAIN PLAN
+SET STATEMENT_ID = 'VIAJES_CLIENTES_PLAN' FOR
+SELECT * FROM VIAJES_CLIENTES;
+
+SELECT PLAN_TABLE_OUTPUT
+FROM TABLE(DBMS_XPLAN.DISPLAY( NULL,'VIAJES_CLIENTES_PLAN','TYPICAL'));
+
+--NEW PLAN
+CREATE INDEX USER_NAME ON USERS(NAME,LAST_NAME);
+
+EXPLAIN PLAN
+SET STATEMENT_ID = 'VIAJES_CLIENTES_NEW_PLAN' FOR
+SELECT * FROM VIAJES_CLIENTES;
+
+SELECT PLAN_TABLE_OUTPUT
+FROM TABLE(DBMS_XPLAN.DISPLAY( NULL,'VIAJES_CLIENTES_PLAN','TYPICAL'));
+
+SELECT PLAN_TABLE_OUTPUT
+FROM TABLE(DBMS_XPLAN.DISPLAY( NULL,'VIAJES_CLIENTES_NEW_PLAN','TYPICAL'));    
 
 --5.Crear una función llamada VALOR_DISTANCIA que reciba la distancia en kilómetros y el nombre de la ciudad donde se hizo el servicio. 
 --Con esta información deberá buscar el valor por cada kilómetro dependiendo de la ciudad donde esté ubicado el viaje. 
